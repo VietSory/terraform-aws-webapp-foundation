@@ -42,8 +42,8 @@ resource "aws_s3_object" "project_info" {
 
   content = <<-EOF_ASSET
 Project: ${var.project_name}
-Purpose: Static asset storage for W8 Terraform final project
-Region: ap-southeast-1
+Purpose: Static asset storage for the Terraform webapp foundation
+Classification: Private application asset
 Managed by: Terraform
 EOF_ASSET
 }

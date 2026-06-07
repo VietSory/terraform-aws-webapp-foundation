@@ -12,7 +12,7 @@ output "backend_config_for_next_step" {
   description = "Copy these values into webapp-infra/backend.tf"
   value = {
     bucket         = aws_s3_bucket.terraform_state.bucket
-    key            = "w8/day-c/webapp/terraform.tfstate"
+    key            = "environments/dev/webapp/terraform.tfstate"
     region         = var.aws_region
     dynamodb_table = aws_dynamodb_table.terraform_locks.name
     profile        = var.aws_profile

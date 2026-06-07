@@ -16,9 +16,7 @@ provider "aws" {
   default_tags {
     tags = {
       Project   = var.project_name
-      Phase     = "phase-2"
-      Week      = "w8"
-      Day       = "day-c"
+      Component = "webapp-infrastructure"
       ManagedBy = "terraform"
     }
   }

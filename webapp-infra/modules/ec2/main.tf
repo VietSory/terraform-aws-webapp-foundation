@@ -38,7 +38,7 @@ resource "aws_instance" "web" {
               <head>
                 <meta charset="UTF-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>W8 Terraform Web App</title>
+                <title>Terraform AWS Webapp Foundation</title>
                 <style>
                   body {
                     font-family: Arial, sans-serif;
@@ -78,14 +78,14 @@ resource "aws_instance" "web" {
               </head>
               <body>
                 <div class="container">
-                  <span class="badge">Phase 2 - W8 - Terraform</span>
-                  <h1>Web App deployed on AWS with Terraform</h1>
-                  <p>This EC2 web server was provisioned by Terraform in <code>ap-southeast-1</code>.</p>
+                  <span class="badge">AWS Terraform Foundation</span>
+                  <h1>Web application infrastructure deployed with Terraform</h1>
+                  <p>This EC2 web server was provisioned from reusable Terraform modules.</p>
                   <ul>
                     <li>VPC created by Terraform module</li>
                     <li>EC2 deployed in a public subnet</li>
-                    <li>RDS MySQL will be deployed in private subnets</li>
-                    <li>S3 bucket will store static assets</li>
+                    <li>RDS MySQL deployed in private subnets</li>
+                    <li>S3 bucket stores static assets</li>
                     <li>Security Groups allow only required traffic</li>
                     <li>Terraform state is stored remotely in S3</li>
                   </ul>

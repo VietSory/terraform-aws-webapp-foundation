@@ -1,7 +1,7 @@
 aws_region  = "ap-southeast-1"
-aws_profile = "hviet"
+aws_profile = "default"
 
-project_name = "hviet-w8-webapp"
+project_name = "terraform-aws-webapp-foundation"
 
 vpc_cidr                 = "10.20.0.0/16"
 public_subnet_cidr       = "10.20.1.0/24"
@@ -16,4 +16,4 @@ ec2_instance_type = "t3.micro"
 rds_instance_class = "db.t3.micro"
 rds_multi_az       = false
 
-static_assets_bucket_prefix = "hviet-w8-static-assets-"
+static_assets_bucket_prefix = "tf-webapp-foundation-assets-"

@@ -15,10 +15,8 @@ provider "aws" {
 
   default_tags {
     tags = {
-      Project   = "hviet-w8-webapp"
-      Phase     = "phase-2"
-      Week      = "w8"
-      Day       = "day-c"
+      Project   = "terraform-aws-webapp-foundation"
+      Component = "terraform-backend"
       ManagedBy = "terraform"
     }
   }

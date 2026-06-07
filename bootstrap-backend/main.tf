@@ -6,7 +6,7 @@ resource "aws_s3_bucket" "terraform_state" {
   }
 
   tags = {
-    Name    = "hviet-w8-tf-state"
+    Name    = "terraform-state-backend"
     Purpose = "terraform-remote-state"
   }
 }

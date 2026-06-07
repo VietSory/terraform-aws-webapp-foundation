@@ -1,10 +1,10 @@
 terraform {
   backend "s3" {
-    bucket         = "hviet-w8-tf-state-20260606085917365100000001"
-    key            = "w8/day-c/webapp/terraform.tfstate"
+    bucket         = "REPLACE_ME_BACKEND_BUCKET"
+    key            = "environments/dev/webapp/terraform.tfstate"
     region         = "ap-southeast-1"
-    profile        = "hviet"
+    profile        = "default"
     encrypt        = true
-    dynamodb_table = "hviet-w8-terraform-locks"
+    dynamodb_table = "REPLACE_ME_LOCK_TABLE"
   }
 }

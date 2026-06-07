@@ -7,13 +7,13 @@ variable "aws_region" {
 variable "aws_profile" {
   description = "AWS CLI profile used by Terraform"
   type        = string
-  default     = "hviet"
+  default     = "default"
 }
 
 variable "project_name" {
   description = "Project name used as resource prefix"
   type        = string
-  default     = "hviet-w8-webapp"
+  default     = "terraform-aws-webapp-foundation"
 }
 
 variable "vpc_cidr" {
@@ -73,5 +73,5 @@ variable "rds_multi_az" {
 variable "static_assets_bucket_prefix" {
   description = "Prefix for globally unique S3 bucket storing static assets"
   type        = string
-  default     = "hviet-w8-static-assets-"
+  default     = "tf-webapp-foundation-assets-"
 }
