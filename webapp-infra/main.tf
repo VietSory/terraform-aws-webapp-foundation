@@ -1,5 +1,5 @@
 module "vpc" {
-  source = "./modules/vpc"
+  source = "../modules/vpc"
 
   project_name             = var.project_name
   vpc_cidr                 = var.vpc_cidr
@@ -11,14 +11,14 @@ module "vpc" {
 }
 
 module "security_groups" {
-  source = "./modules/security_groups"
+  source = "../modules/security_groups"
 
   project_name = var.project_name
   vpc_id       = module.vpc.vpc_id
 }
 
 module "ec2" {
-  source = "./modules/ec2"
+  source = "../modules/ec2"
 
   project_name      = var.project_name
   subnet_id         = module.vpc.public_web_subnet_id
@@ -27,7 +27,7 @@ module "ec2" {
 }
 
 module "rds" {
-  source = "./modules/rds"
+  source = "../modules/rds"
 
   project_name         = var.project_name
   private_subnet_ids   = module.vpc.private_db_subnet_ids
@@ -37,7 +37,7 @@ module "rds" {
 }
 
 module "s3" {
-  source = "./modules/s3"
+  source = "../modules/s3"
 
   project_name  = var.project_name
   bucket_prefix = var.static_assets_bucket_prefix

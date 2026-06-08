@@ -7,6 +7,7 @@
 This repository currently provisions:
 
 - Terraform remote state infrastructure with S3 and DynamoDB
+- Reusable Terraform modules for networking, security, compute, database, and storage
 - A VPC with one public subnet and two private database subnets
 - Security groups for a public web tier and private MySQL tier
 - An EC2 instance that serves a simple HTTP landing page
@@ -16,12 +17,14 @@ This repository currently provisions:
 ## Repository Layout
 
 ```text
+modules/
+  Reusable Terraform modules shared by live infrastructure stacks.
+
 bootstrap-backend/
   Creates the S3 bucket and DynamoDB table used by Terraform state.
 
 webapp-infra/
-  Deploys the application foundation by composing the VPC, security group,
-  EC2, RDS, and S3 modules.
+  Deploys the application foundation by composing modules from the repo root.
 
 docs/
   Placeholder for architecture notes, runbooks, and operational guidance.
