@@ -10,6 +10,18 @@ variable "aws_profile" {
   default     = "default"
 }
 
+variable "project_name" {
+  description = "Repository or project name used in naming and tagging"
+  type        = string
+  default     = "terraform-aws-webapp-foundation"
+}
+
+variable "environment" {
+  description = "Deployment environment name"
+  type        = string
+  default     = "dev"
+}
+
 variable "state_bucket_prefix" {
   description = "Prefix for globally unique S3 bucket storing Terraform state"
   type        = string

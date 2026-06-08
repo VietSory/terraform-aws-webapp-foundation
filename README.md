@@ -62,6 +62,7 @@ terraform {
 - The checked-in defaults are intentionally neutral and should be treated as a baseline, not as production policy.
 - `live/dev/webapp/backend.tf` contains placeholders and must be updated with real backend resources before `terraform init`.
 - `live/dev/webapp/terraform.tfvars` is the current starter configuration for the dev environment.
+- Resource naming is derived from `project_name` and `environment`, and provider-level default tags include repository, environment, stack, and component metadata.
 - The current stack is cost-conscious rather than production-hardened: RDS uses single-AZ, backups are disabled, and some lifecycle protections are intentionally minimal.
 
 ## Usage

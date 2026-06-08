@@ -15,8 +15,11 @@ provider "aws" {
 
   default_tags {
     tags = {
-      Project   = "terraform-aws-webapp-foundation"
-      Component = "terraform-backend"
+      Project     = var.project_name
+      Environment = var.environment
+      Repository  = var.project_name
+      Stack       = "bootstrap-backend"
+      Component   = "terraform-backend"
       ManagedBy = "terraform"
     }
   }

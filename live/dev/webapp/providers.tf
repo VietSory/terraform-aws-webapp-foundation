@@ -15,8 +15,11 @@ provider "aws" {
 
   default_tags {
     tags = {
-      Project   = var.project_name
-      Component = "webapp-infrastructure"
+      Project     = var.project_name
+      Environment = var.environment
+      Repository  = var.project_name
+      Stack       = "webapp"
+      Component   = "webapp-infrastructure"
       ManagedBy = "terraform"
     }
   }

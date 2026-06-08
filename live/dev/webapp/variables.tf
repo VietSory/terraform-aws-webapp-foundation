@@ -16,6 +16,12 @@ variable "project_name" {
   default     = "terraform-aws-webapp-foundation"
 }
 
+variable "environment" {
+  description = "Deployment environment name"
+  type        = string
+  default     = "dev"
+}
+
 variable "vpc_cidr" {
   description = "CIDR block for the project VPC"
   type        = string

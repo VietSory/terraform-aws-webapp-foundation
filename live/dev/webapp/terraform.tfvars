@@ -2,6 +2,7 @@ aws_region  = "ap-southeast-1"
 aws_profile = "default"
 
 project_name = "terraform-aws-webapp-foundation"
+environment  = "dev"
 
 vpc_cidr                 = "10.20.0.0/16"
 public_subnet_cidr       = "10.20.1.0/24"
@@ -16,4 +17,4 @@ ec2_instance_type = "t3.micro"
 rds_instance_class = "db.t3.micro"
 rds_multi_az       = false
 
-static_assets_bucket_prefix = "tf-webapp-foundation-assets-"
+static_assets_bucket_prefix = "tf-dev-webapp-foundation-assets-"

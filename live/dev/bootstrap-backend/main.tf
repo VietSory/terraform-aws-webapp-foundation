@@ -6,7 +6,7 @@ resource "aws_s3_bucket" "terraform_state" {
   }
 
   tags = {
-    Name    = "terraform-state-backend"
+    Name    = "${local.name_prefix}-terraform-state"
     Purpose = "terraform-remote-state"
   }
 }
