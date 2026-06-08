@@ -20,11 +20,11 @@ This repository currently provisions:
 modules/
   Reusable Terraform modules shared by live infrastructure stacks.
 
-bootstrap-backend/
-  Creates the S3 bucket and DynamoDB table used by Terraform state.
+live/dev/bootstrap-backend/
+  Creates the S3 bucket and DynamoDB table used by Terraform state for dev.
 
-webapp-infra/
-  Deploys the application foundation by composing modules from the repo root.
+live/dev/webapp/
+  Deploys the application foundation for the dev environment.
 
 docs/
   Placeholder for architecture notes, runbooks, and operational guidance.
@@ -32,15 +32,15 @@ docs/
 
 ## Deployment Workflow
 
-1. Apply `bootstrap-backend` to create remote-state resources.
-2. Copy the generated bucket and lock-table values into `webapp-infra/backend.tf`.
-3. Review `webapp-infra/terraform.tfvars` and adapt naming, CIDRs, region, and sizing.
-4. Run `terraform init`, `terraform plan`, and `terraform apply` in `webapp-infra`.
+1. Apply `live/dev/bootstrap-backend` to create remote-state resources.
+2. Copy the generated bucket and lock-table values into `live/dev/webapp/backend.tf`.
+3. Review `live/dev/webapp/terraform.tfvars` and adapt naming, CIDRs, region, and sizing.
+4. Run `terraform init`, `terraform plan`, and `terraform apply` in `live/dev/webapp`.
 5. Validate the deployed website and infrastructure outputs.
 
 ## Backend Bootstrap
 
-`bootstrap-backend` exists because Terraform cannot use an S3 backend until the backend bucket already exists.
+`live/dev/bootstrap-backend` exists because Terraform cannot use an S3 backend until the backend bucket already exists.
 
 Expected backend inputs after bootstrapping:
 
@@ -60,8 +60,8 @@ terraform {
 ## Configuration Notes
 
 - The checked-in defaults are intentionally neutral and should be treated as a baseline, not as production policy.
-- `webapp-infra/backend.tf` contains placeholders and must be updated with real backend resources before `terraform init`.
-- `webapp-infra/terraform.tfvars` is a starter configuration for a single environment. A later refactor should split this into environment-specific inputs.
+- `live/dev/webapp/backend.tf` contains placeholders and must be updated with real backend resources before `terraform init`.
+- `live/dev/webapp/terraform.tfvars` is the current starter configuration for the dev environment.
 - The current stack is cost-conscious rather than production-hardened: RDS uses single-AZ, backups are disabled, and some lifecycle protections are intentionally minimal.
 
 ## Usage
@@ -69,7 +69,7 @@ terraform {
 Bootstrap backend resources:
 
 ```bash
-cd bootstrap-backend
+cd live/dev/bootstrap-backend
 terraform init
 terraform fmt -recursive
 terraform validate
@@ -79,7 +79,7 @@ terraform apply
 Deploy the web application foundation:
 
 ```bash
-cd webapp-infra
+cd live/dev/webapp
 terraform init
 terraform fmt -recursive
 terraform validate
@@ -108,7 +108,6 @@ This repository is being upgraded from a learning-oriented delivery into a reusa
 
 ## Next Professionalization Steps
 
-- Split live environments from reusable modules
 - Add CI for `terraform fmt`, `validate`, linting, and security scanning
 - Introduce environment-specific variable files and backend conventions
 - Harden lifecycle controls for RDS and S3

@@ -9,7 +9,7 @@ output "lock_table_name" {
 }
 
 output "backend_config_for_next_step" {
-  description = "Copy these values into webapp-infra/backend.tf"
+  description = "Copy these values into live/dev/webapp/backend.tf"
   value = {
     bucket         = aws_s3_bucket.terraform_state.bucket
     key            = "environments/dev/webapp/terraform.tfstate"
