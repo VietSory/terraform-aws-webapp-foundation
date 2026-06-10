@@ -1,10 +1,3 @@
 terraform {
-  backend "s3" {
-    bucket         = "REPLACE_ME_BACKEND_BUCKET"
-    key            = "environments/dev/webapp/terraform.tfstate"
-    region         = "ap-southeast-1"
-    profile        = "default"
-    encrypt        = true
-    dynamodb_table = "REPLACE_ME_LOCK_TABLE"
-  }
+  backend "s3" {}
 }

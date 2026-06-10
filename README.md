@@ -33,34 +33,30 @@ docs/
 ## Deployment Workflow
 
 1. Apply `live/dev/bootstrap-backend` to create remote-state resources.
-2. Copy the generated bucket and lock-table values into `live/dev/webapp/backend.tf`.
+2. Copy the generated bucket and lock-table values into `live/dev/webapp/backend.hcl`.
 3. Review `live/dev/webapp/terraform.tfvars` and adapt naming, CIDRs, region, and sizing.
-4. Run `terraform init`, `terraform plan`, and `terraform apply` in `live/dev/webapp`.
+4. Run `terraform init -backend-config=backend.hcl`, then `terraform plan` and `terraform apply` in `live/dev/webapp`.
 5. Validate the deployed website and infrastructure outputs.
 
 ## Backend Bootstrap
 
 `live/dev/bootstrap-backend` exists because Terraform cannot use an S3 backend until the backend bucket already exists.
 
-Expected backend inputs after bootstrapping:
+Expected backend config after bootstrapping:
 
 ```hcl
-terraform {
-  backend "s3" {
-    bucket         = "your-generated-state-bucket"
-    key            = "environments/dev/webapp/terraform.tfstate"
-    region         = "ap-southeast-1"
-    profile        = "default"
-    encrypt        = true
-    dynamodb_table = "your-lock-table"
-  }
-}
+bucket         = "your-generated-state-bucket"
+key            = "environments/dev/webapp/terraform.tfstate"
+region         = "ap-southeast-1"
+profile        = "default"
+encrypt        = true
+dynamodb_table = "your-lock-table"
 ```
 
 ## Configuration Notes
 
 - The checked-in defaults are intentionally neutral and should be treated as a baseline, not as production policy.
-- `live/dev/webapp/backend.tf` contains placeholders and must be updated with real backend resources before `terraform init`.
+- `live/dev/webapp/backend.hcl.example` should be copied to `backend.hcl` and filled with real backend resources before `terraform init`.
 - `live/dev/webapp/terraform.tfvars` is the current starter configuration for the dev environment.
 - Resource naming is derived from `project_name` and `environment`, and provider-level default tags include repository, environment, stack, and component metadata.
 - The current stack is cost-conscious rather than production-hardened: RDS uses single-AZ, backups are disabled, and some lifecycle protections are intentionally minimal.
@@ -81,7 +77,8 @@ Deploy the web application foundation:
 
 ```bash
 cd live/dev/webapp
-terraform init
+cp backend.hcl.example backend.hcl
+terraform init -backend-config=backend.hcl
 terraform fmt -recursive
 terraform validate
 terraform plan
