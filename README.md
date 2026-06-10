@@ -34,8 +34,8 @@ docs/
 
 1. Apply `live/dev/bootstrap-backend` to create remote-state resources.
 2. Copy the generated bucket and lock-table values into `live/dev/webapp/backend.hcl`.
-3. Review `live/dev/webapp/terraform.tfvars` and adapt naming, CIDRs, region, and sizing.
-4. Run `terraform init -backend-config=backend.hcl`, then `terraform plan` and `terraform apply` in `live/dev/webapp`.
+3. Choose or adapt a variable file from `live/dev/webapp/tfvars/`.
+4. Run `terraform init -backend-config=backend.hcl`, then `terraform plan` and `terraform apply` with the selected `-var-file`.
 5. Validate the deployed website and infrastructure outputs.
 
 ## Backend Bootstrap
@@ -57,7 +57,8 @@ dynamodb_table = "your-lock-table"
 
 - The checked-in defaults are intentionally neutral and should be treated as a baseline, not as production policy.
 - `live/dev/webapp/backend.hcl.example` should be copied to `backend.hcl` and filled with real backend resources before `terraform init`.
-- `live/dev/webapp/terraform.tfvars` is the current starter configuration for the dev environment.
+- `live/dev/webapp/tfvars/dev.tfvars` is the current starter configuration for the dev environment.
+- `live/dev/webapp/tfvars/prod.tfvars.example` documents a more production-oriented baseline with separate CIDRs, larger instance sizes, and Multi-AZ enabled.
 - Resource naming is derived from `project_name` and `environment`, and provider-level default tags include repository, environment, stack, and component metadata.
 - The current stack is cost-conscious rather than production-hardened: RDS uses single-AZ, backups are disabled, and some lifecycle protections are intentionally minimal.
 
@@ -81,8 +82,14 @@ cp backend.hcl.example backend.hcl
 terraform init -backend-config=backend.hcl
 terraform fmt -recursive
 terraform validate
-terraform plan
-terraform apply
+terraform plan -var-file=tfvars/dev.tfvars
+terraform apply -var-file=tfvars/dev.tfvars
+```
+
+To test a production-oriented input set without creating a dedicated prod stack yet:
+
+```bash
+terraform plan -var-file=tfvars/prod.tfvars.example
 ```
 
 ## Validation
