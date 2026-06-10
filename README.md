@@ -26,21 +26,29 @@ live/dev/bootstrap-backend/
 live/dev/webapp/
   Deploys the application foundation for the dev environment.
 
+live/prod/bootstrap-backend/
+  Creates the S3 bucket and DynamoDB table used by Terraform state for prod.
+
+live/prod/webapp/
+  Deploys the application foundation for the prod environment.
+
 docs/
   Placeholder for architecture notes, runbooks, and operational guidance.
 ```
 
 ## Deployment Workflow
 
-1. Apply `live/dev/bootstrap-backend` to create remote-state resources.
-2. Copy the generated bucket and lock-table values into `live/dev/webapp/backend.hcl`.
-3. Choose or adapt a variable file from `live/dev/webapp/tfvars/`.
+Each environment follows the same two-stack workflow:
+
+1. Apply `live/<environment>/bootstrap-backend` to create remote-state resources.
+2. Copy the generated bucket and lock-table values into `live/<environment>/webapp/backend.hcl`.
+3. Choose or adapt a variable file from `live/<environment>/webapp/tfvars/`.
 4. Run `terraform init -backend-config=backend.hcl`, then `terraform plan` and `terraform apply` with the selected `-var-file`.
 5. Validate the deployed website and infrastructure outputs.
 
 ## Backend Bootstrap
 
-`live/dev/bootstrap-backend` exists because Terraform cannot use an S3 backend until the backend bucket already exists.
+Every environment has its own `bootstrap-backend` stack because Terraform cannot use an S3 backend until the backend bucket already exists.
 
 Expected backend config after bootstrapping:
 
@@ -59,6 +67,7 @@ dynamodb_table = "your-lock-table"
 - `live/dev/webapp/backend.hcl.example` should be copied to `backend.hcl` and filled with real backend resources before `terraform init`.
 - `live/dev/webapp/tfvars/dev.tfvars` is the current starter configuration for the dev environment.
 - `live/dev/webapp/tfvars/prod.tfvars.example` documents a more production-oriented baseline with separate CIDRs, larger instance sizes, and Multi-AZ enabled.
+- `live/prod/webapp/tfvars/prod.tfvars` is a scaffolded production baseline, but it should still be reviewed before use in a real account.
 - Resource naming is derived from `project_name` and `environment`, and provider-level default tags include repository, environment, stack, and component metadata.
 - The current stack is cost-conscious rather than production-hardened: RDS uses single-AZ, backups are disabled, and some lifecycle protections are intentionally minimal.
 
@@ -86,10 +95,14 @@ terraform plan -var-file=tfvars/dev.tfvars
 terraform apply -var-file=tfvars/dev.tfvars
 ```
 
-To test a production-oriented input set without creating a dedicated prod stack yet:
+Deploy the scaffolded prod stack:
 
 ```bash
-terraform plan -var-file=tfvars/prod.tfvars.example
+cd live/prod/webapp
+cp backend.hcl.example backend.hcl
+terraform init -backend-config=backend.hcl
+terraform plan -var-file=tfvars/prod.tfvars
+terraform apply -var-file=tfvars/prod.tfvars
 ```
 
 ## Validation
@@ -105,8 +118,8 @@ Basic validation steps after deployment:
 
 This repository is being upgraded from a learning-oriented delivery into a reusable infrastructure project. The current code is functional, but still intentionally simple in a few areas:
 
-- Single environment layout
 - Backend settings copied manually between stacks
+- Dev and prod stacks are scaffolded separately and still duplicate some live-layer code
 - No CI pipeline or lint/security scanning yet
 - No ALB, autoscaling, NAT, or private application tier yet
 - Limited operational documentation
@@ -114,6 +127,6 @@ This repository is being upgraded from a learning-oriented delivery into a reusa
 ## Next Professionalization Steps
 
 - Add CI for `terraform fmt`, `validate`, linting, and security scanning
-- Introduce environment-specific variable files and backend conventions
+- Reduce duplication across live environment stacks
 - Harden lifecycle controls for RDS and S3
 - Add runbooks, architecture docs, and deployment automation
