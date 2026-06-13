@@ -14,7 +14,11 @@ availability_zone_b = "ap-southeast-1b"
 
 ec2_instance_type = "t3.micro"
 
-rds_instance_class = "db.t3.micro"
-rds_multi_az       = false
+rds_instance_class           = "db.t3.micro"
+rds_multi_az                 = false
+rds_backup_retention_period = 0
+rds_skip_final_snapshot     = true
+rds_deletion_protection     = false
+rds_apply_immediately       = true
 
 static_assets_bucket_prefix = "tf-dev-webapp-foundation-assets-"

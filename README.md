@@ -69,7 +69,7 @@ dynamodb_table = "your-lock-table"
 - `live/dev/webapp/tfvars/prod.tfvars.example` documents a more production-oriented baseline with separate CIDRs, larger instance sizes, and Multi-AZ enabled.
 - `live/prod/webapp/tfvars/prod.tfvars` is a scaffolded production baseline, but it should still be reviewed before use in a real account.
 - Resource naming is derived from `project_name` and `environment`, and provider-level default tags include repository, environment, stack, and component metadata.
-- The current stack is cost-conscious rather than production-hardened: RDS uses single-AZ, backups are disabled, and some lifecycle protections are intentionally minimal.
+- The dev stack keeps RDS cost-conscious and easy to tear down, while the prod baseline enables backups, final snapshots, and deletion protection.
 
 ## Usage
 

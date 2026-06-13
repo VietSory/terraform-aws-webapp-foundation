@@ -29,11 +29,15 @@ module "ec2" {
 module "rds" {
   source = "../../../modules/rds"
 
-  project_name         = local.name_prefix
-  private_subnet_ids   = module.vpc.private_db_subnet_ids
-  db_security_group_id = module.security_groups.db_security_group_id
-  instance_class       = var.rds_instance_class
-  multi_az             = var.rds_multi_az
+  project_name              = local.name_prefix
+  private_subnet_ids        = module.vpc.private_db_subnet_ids
+  db_security_group_id      = module.security_groups.db_security_group_id
+  instance_class            = var.rds_instance_class
+  multi_az                  = var.rds_multi_az
+  backup_retention_period   = var.rds_backup_retention_period
+  skip_final_snapshot       = var.rds_skip_final_snapshot
+  deletion_protection       = var.rds_deletion_protection
+  apply_immediately         = var.rds_apply_immediately
 }
 
 module "s3" {

@@ -76,6 +76,30 @@ variable "rds_multi_az" {
   default     = false
 }
 
+variable "rds_backup_retention_period" {
+  description = "Number of days to retain automated RDS backups"
+  type        = number
+  default     = 7
+}
+
+variable "rds_skip_final_snapshot" {
+  description = "Whether to skip the final RDS snapshot on destroy"
+  type        = bool
+  default     = false
+}
+
+variable "rds_deletion_protection" {
+  description = "Whether deletion protection is enabled for RDS"
+  type        = bool
+  default     = true
+}
+
+variable "rds_apply_immediately" {
+  description = "Whether RDS changes are applied immediately"
+  type        = bool
+  default     = false
+}
+
 variable "static_assets_bucket_prefix" {
   description = "Prefix for globally unique S3 bucket storing static assets"
   type        = string

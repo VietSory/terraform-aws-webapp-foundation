@@ -29,10 +29,11 @@ resource "aws_db_instance" "mysql" {
   publicly_accessible = false
   multi_az            = var.multi_az
 
-  backup_retention_period = 0
-  skip_final_snapshot     = true
-  deletion_protection     = false
-  apply_immediately       = true
+  backup_retention_period   = var.backup_retention_period
+  skip_final_snapshot       = var.skip_final_snapshot
+  final_snapshot_identifier = var.skip_final_snapshot ? null : "${var.project_name}-final-snapshot"
+  deletion_protection       = var.deletion_protection
+  apply_immediately         = var.apply_immediately
 
   tags = {
     Name = "${var.project_name}-mysql"
