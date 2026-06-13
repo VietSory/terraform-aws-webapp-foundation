@@ -70,6 +70,7 @@ dynamodb_table = "your-lock-table"
 - `live/prod/webapp/tfvars/prod.tfvars` is a scaffolded production baseline, but it should still be reviewed before use in a real account.
 - Resource naming is derived from `project_name` and `environment`, and provider-level default tags include repository, environment, stack, and component metadata.
 - The dev stack keeps RDS cost-conscious and easy to tear down, while the prod baseline enables backups, final snapshots, and deletion protection.
+- The dev static assets bucket allows force destroy for fast cleanup, while the prod baseline keeps force destroy disabled and retains noncurrent object versions longer.
 
 ## Usage
 

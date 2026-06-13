@@ -21,4 +21,8 @@ rds_skip_final_snapshot     = true
 rds_deletion_protection     = false
 rds_apply_immediately       = true
 
-static_assets_bucket_prefix = "tf-dev-webapp-foundation-assets-"
+static_assets_bucket_prefix                           = "tf-dev-webapp-foundation-assets-"
+static_assets_force_destroy                           = true
+static_assets_lifecycle_enabled                       = true
+static_assets_noncurrent_version_expiration_days      = 7
+static_assets_abort_incomplete_multipart_upload_days = 3

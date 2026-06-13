@@ -105,3 +105,27 @@ variable "static_assets_bucket_prefix" {
   type        = string
   default     = "tf-prod-webapp-foundation-assets-"
 }
+
+variable "static_assets_force_destroy" {
+  description = "Whether Terraform can delete the static assets bucket even when it contains objects"
+  type        = bool
+  default     = false
+}
+
+variable "static_assets_lifecycle_enabled" {
+  description = "Whether S3 lifecycle management is enabled for static assets"
+  type        = bool
+  default     = true
+}
+
+variable "static_assets_noncurrent_version_expiration_days" {
+  description = "Number of days before noncurrent static asset versions expire"
+  type        = number
+  default     = 90
+}
+
+variable "static_assets_abort_incomplete_multipart_upload_days" {
+  description = "Number of days before incomplete static asset uploads are aborted"
+  type        = number
+  default     = 7
+}

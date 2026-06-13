@@ -43,6 +43,10 @@ module "rds" {
 module "s3" {
   source = "../../../modules/s3"
 
-  project_name  = local.name_prefix
-  bucket_prefix = var.static_assets_bucket_prefix
+  project_name                            = local.name_prefix
+  bucket_prefix                           = var.static_assets_bucket_prefix
+  force_destroy                           = var.static_assets_force_destroy
+  lifecycle_enabled                       = var.static_assets_lifecycle_enabled
+  noncurrent_version_expiration_days      = var.static_assets_noncurrent_version_expiration_days
+  abort_incomplete_multipart_upload_days = var.static_assets_abort_incomplete_multipart_upload_days
 }
