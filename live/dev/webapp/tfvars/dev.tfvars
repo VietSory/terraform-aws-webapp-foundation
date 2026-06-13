@@ -13,6 +13,10 @@ availability_zone_a = "ap-southeast-1a"
 availability_zone_b = "ap-southeast-1b"
 
 ec2_instance_type = "t3.micro"
+ec2_page_title    = "Terraform AWS Webapp Foundation"
+ec2_badge_text    = "AWS Terraform Foundation - Dev"
+ec2_headline      = "Development web application infrastructure"
+ec2_description   = "This dev EC2 web server was provisioned from reusable Terraform modules."
 
 rds_instance_class           = "db.t3.micro"
 rds_multi_az                 = false

@@ -64,6 +64,30 @@ variable "ec2_instance_type" {
   default     = "t3.micro"
 }
 
+variable "ec2_page_title" {
+  description = "HTML title for the EC2 landing page"
+  type        = string
+  default     = "Terraform AWS Webapp Foundation"
+}
+
+variable "ec2_badge_text" {
+  description = "Badge text shown on the EC2 landing page"
+  type        = string
+  default     = "AWS Terraform Foundation - Prod"
+}
+
+variable "ec2_headline" {
+  description = "Headline shown on the EC2 landing page"
+  type        = string
+  default     = "Production web application infrastructure"
+}
+
+variable "ec2_description" {
+  description = "Short description shown on the EC2 landing page"
+  type        = string
+  default     = "This prod EC2 web server was provisioned from reusable Terraform modules."
+}
+
 variable "rds_instance_class" {
   description = "RDS instance class for MySQL database"
   type        = string

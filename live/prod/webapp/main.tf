@@ -24,6 +24,10 @@ module "ec2" {
   subnet_id         = module.vpc.public_web_subnet_id
   security_group_id = module.security_groups.web_security_group_id
   instance_type     = var.ec2_instance_type
+  page_title        = var.ec2_page_title
+  badge_text        = var.ec2_badge_text
+  headline          = var.ec2_headline
+  description       = var.ec2_description
 }
 
 module "rds" {
