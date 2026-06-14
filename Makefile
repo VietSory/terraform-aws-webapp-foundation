@@ -4,7 +4,7 @@ BOOTSTRAP_DIR := live/$(ENV)/bootstrap-backend
 VAR_FILE ?= tfvars/$(ENV).tfvars
 BACKEND_CONFIG ?= backend.hcl
 
-.PHONY: fmt validate bootstrap-init bootstrap-plan bootstrap-apply webapp-init webapp-plan webapp-apply webapp-destroy smoke
+.PHONY: fmt validate bootstrap-init bootstrap-plan bootstrap-apply webapp-init webapp-plan webapp-apply webapp-destroy smoke hooks-install hooks-run
 
 fmt:
 	terraform fmt -recursive
@@ -36,3 +36,9 @@ webapp-destroy:
 
 smoke:
 	./scripts/smoke-check-webapp.sh $(WEBAPP_DIR)
+
+hooks-install:
+	pre-commit install
+
+hooks-run:
+	pre-commit run --all-files

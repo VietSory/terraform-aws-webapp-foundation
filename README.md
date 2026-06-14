@@ -118,6 +118,13 @@ make webapp-apply ENV=dev
 make smoke ENV=dev
 ```
 
+Install and run repository hygiene hooks:
+
+```bash
+make hooks-install
+make hooks-run
+```
+
 ## Validation
 
 Basic validation steps after deployment:
@@ -148,5 +155,4 @@ This repository is being upgraded from a learning-oriented delivery into a reusa
 
 - Add CI for `terraform fmt`, `validate`, linting, and security scanning
 - Reduce duplication across live environment stacks
-- Harden lifecycle controls for RDS and S3
 - Add runbooks, architecture docs, and deployment automation
