@@ -116,6 +116,13 @@ Basic validation steps after deployment:
 - `terraform state list` to confirm the expected resources are under management
 - AWS CLI checks for RDS status, S3 bucket settings, and security group rules
 
+Run the smoke check script from the repository root after applying a webapp stack:
+
+```bash
+./scripts/smoke-check-webapp.sh live/dev/webapp
+./scripts/smoke-check-webapp.sh live/prod/webapp
+```
+
 ## Current Tradeoffs
 
 This repository is being upgraded from a learning-oriented delivery into a reusable infrastructure project. The current code is functional, but still intentionally simple in a few areas:
