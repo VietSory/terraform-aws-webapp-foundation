@@ -107,6 +107,17 @@ terraform plan -var-file=tfvars/prod.tfvars
 terraform apply -var-file=tfvars/prod.tfvars
 ```
 
+Common commands are also available through `make` from the repository root:
+
+```bash
+make fmt
+make bootstrap-init ENV=dev
+make webapp-init ENV=dev
+make webapp-plan ENV=dev
+make webapp-apply ENV=dev
+make smoke ENV=dev
+```
+
 ## Validation
 
 Basic validation steps after deployment:
