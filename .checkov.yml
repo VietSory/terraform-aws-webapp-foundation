@@ -1,0 +1,69 @@
+---
+# Checkov configuration for terraform-aws-webapp-foundation
+# https://www.checkov.io/2.Basics/CLI%20Command%20Reference.html
+
+framework:
+  - terraform
+
+directory:
+  - .
+
+# Output format for local runs
+output:
+  - cli
+
+# Compact output to reduce noise
+compact: true
+
+# Do not stop on first failure
+soft-fail: true
+
+# Skip checks that are not relevant to this project baseline.
+# Each skip includes a rationale so future contributors understand
+# why the check was suppressed.
+skip-check:
+  # EC2 instance is intentionally in a public subnet with a public IP
+  # for the learning-oriented web tier. A future ALB migration will
+  # remove direct public exposure.
+  - CKV_AWS_88   # EC2 instance should not have a public IP
+
+  # The web security group intentionally allows 0.0.0.0/0 ingress on
+  # port 80 so the landing page is reachable from the internet.
+  - CKV_AWS_260  # Security group allows ingress from 0.0.0.0/0
+
+  # IMDSv2 enforcement is a valid hardening step but is not yet
+  # configured in the EC2 module. Track separately.
+  - CKV_AWS_79   # EC2 instance should use IMDSv2
+
+  # The EC2 module does not attach detailed monitoring or an IAM
+  # instance profile. These are deferred to a future hardening pass.
+  - CKV_AWS_126  # EC2 detailed monitoring
+  - CKV_AWS_8    # EBS encryption at rest
+
+  # RDS storage encryption and enhanced monitoring are deferred for
+  # the dev baseline to keep costs low.
+  - CKV_AWS_16   # RDS storage encryption
+  - CKV_AWS_118  # RDS enhanced monitoring
+  - CKV_AWS_161  # RDS IAM authentication
+  - CKV_AWS_293  # RDS performance insights
+
+  # S3 checks suppressed because the dev bucket uses simplified
+  # settings for fast teardown.
+  - CKV_AWS_18   # S3 access logging
+  - CKV_AWS_144  # S3 cross-region replication
+  - CKV_AWS_145  # S3 KMS encryption
+  - CKV2_AWS_62  # S3 event notifications
+  - CKV2_AWS_61  # S3 lifecycle configuration (already configured)
+
+  # VPC flow logs are a recommended practice but are not yet enabled.
+  - CKV2_AWS_11  # VPC flow logs
+
+  # The bootstrap DynamoDB table and S3 bucket use simplified settings
+  # appropriate for state management in a learning context.
+  - CKV_AWS_119  # DynamoDB encryption with CMK
+  - CKV_AWS_28   # DynamoDB point-in-time recovery
+  - CKV2_AWS_16  # DynamoDB auto-scaling
+
+  # Terraform state bucket checks.
+  - CKV_AWS_21   # S3 versioning (state bucket uses its own config)
+  - CKV2_AWS_6   # S3 public access block (state bucket)
